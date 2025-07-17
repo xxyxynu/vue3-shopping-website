@@ -1,6 +1,31 @@
 <script setup>
 import LayoutHeaderUl from './LayoutHeaderUl.vue'
 import HeaderCart from './HeaderCart.vue'
+import { onBeforeUnmount, ref, watch } from 'vue';
+import { debounce } from 'lodash';
+import { useCategory } from '../../Category/composables/useCategory'
+
+const search = ref('');
+const { categoryData } = useCategory()
+
+const handleSearch = (val) => {
+  console.log(search.value);
+}
+
+const debouncedSearch = debounce((val) => {
+  handleSearch(val)
+}, 500)
+
+// 监听 search 输入
+watch(search, (newVal) => {
+  debouncedSearch(newVal)
+})
+
+//在 onBeforeUnmount 时取消防抖，以避免内存泄漏
+onBeforeUnmount(() => {
+  debouncedSearch.cancel();
+})
+
 </script>
 
 <template>
@@ -13,7 +38,7 @@ import HeaderCart from './HeaderCart.vue'
       <LayoutHeaderUl />
       <div class="search">
         <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="搜一搜">
+        <input type="text" placeholder="搜一搜" v-model="search">
       </div>
       <!-- 头部购物车 -->
       <HeaderCart />
