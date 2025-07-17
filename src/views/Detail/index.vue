@@ -5,6 +5,8 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useCartStore } from '@/stores/cartStore'
+import { watch } from 'vue'
+
 const cartStore = useCartStore()
 const goods = ref({})
 const route = useRoute()
@@ -12,7 +14,12 @@ const getGoods = async () => {
   const res = await getDetail(route.params.id)
   goods.value = res.result
 }
+
 onMounted(() => getGoods())
+
+watch(() => route.params.id, () => {
+  getGoods()
+})
 
 // sku规格被操作时
 let skuObj = {}
