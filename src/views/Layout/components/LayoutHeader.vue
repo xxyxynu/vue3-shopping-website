@@ -18,7 +18,7 @@ import HeaderCart from './HeaderCart.vue'
       <!-- 头部购物车 -->
       <HeaderCart />
     </div>
-</header>
+  </header>
 </template>
 
 

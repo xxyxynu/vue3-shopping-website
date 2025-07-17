@@ -61,7 +61,7 @@ const router = createRouter({
           component: Member,
           children: [
             {
-              path: '',
+              path: 'user',
               component: UserInfo
             },
             {
@@ -78,7 +78,7 @@ const router = createRouter({
     }
   ],
   // 路由滚动行为定制
-  scrollBehavior () {
+  scrollBehavior() {
     return {
       top: 0
     }

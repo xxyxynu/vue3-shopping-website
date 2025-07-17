@@ -1,5 +1,7 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore'
+import { ShoppingCart, Close } from '@element-plus/icons-vue'
+
 const cartStore = useCartStore()
 
 </script>
@@ -7,7 +9,10 @@ const cartStore = useCartStore()
 <template>
   <div class="cart">
     <a class="curr" href="javascript:;">
-      <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
+      <el-icon style="font-size: 28px;">
+        <ShoppingCart />
+      </el-icon>
+      <em>{{ cartStore.cartList.length }}</em>
     </a>
     <div class="layer">
       <div class="list">
@@ -26,7 +31,9 @@ const cartStore = useCartStore()
               <p class="count">x{{ i.count }}</p>
             </div>
           </RouterLink>
-          <i class="iconfont icon-close-new" @click="cartStore.delCart(i.skuId)"></i>
+          <el-icon class="close-btn" @click="cartStore.delCart(i.skuId)">
+            <Close />
+          </el-icon>
         </div>
 
       </div>
@@ -38,7 +45,7 @@ const cartStore = useCartStore()
         <el-button size="large" type="primary" @click="$router.push('/cartlist')">去购物车结算</el-button>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -166,7 +173,7 @@ const cartStore = useCartStore()
         bottom: 38px;
         right: 0;
         opacity: 0;
-        color: #666;
+        color: black;
         transition: all 0.5s;
       }
 
